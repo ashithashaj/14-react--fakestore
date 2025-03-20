@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ProductCard from "./components/card";
-import "./App.css";
 import Navbar from "./components/navbar";
 import Carousel from "./components/carousal";
 import Footer from "./components/footer";
-const HomePage = () => {
+import ProductDetails from "./components/ProductDetails";
+import "./App.css";
+
+const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,9 +23,9 @@ const HomePage = () => {
 
   return (
     <div className="homepage">
-      <Navbar/>
+      <Navbar />
       <Carousel images={["/slide1.webp", "/slide2.webp", "/slide3.jpg"]} />
-      
+
       <h1 className="title">Our Products</h1>
       <div style={{ padding: " 20px 0" }}>
         {loading ? (
@@ -35,9 +38,20 @@ const HomePage = () => {
           </div>
         )}
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
 
-export default HomePage;
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetails />} />
+      </Routes>
+    </Router>
+  );
+};
+
+export default App;
